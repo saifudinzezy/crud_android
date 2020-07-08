@@ -3,7 +3,9 @@ package com.firebaseapp.crud;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +31,8 @@ public class Form extends AppCompatActivity {
     Button btnSimpan;
     Mahasiswa mahasiswa;
     boolean flag = false;
+    @BindView(R.id.loading)
+    ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +65,16 @@ public class Form extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getDataFromAdapter(){
+    private void getDataFromAdapter() {
+        loading.setVisibility(View.GONE);
         mahasiswa = getIntent().getParcelableExtra(KEY);
-        if (mahasiswa != null ){
+        if (mahasiswa != null) {
             getSupportActionBar().setTitle("Update Mahasiswa");
             flag = true;
             btnSimpan.setText("Update");
             //init
             nama.setText(mahasiswa.getNama());
-        }else {
+        } else {
             flag = false;
             getSupportActionBar().setTitle("Tambah Mahasiswa");
         }
